@@ -58,6 +58,7 @@ Assert: we should never get here
 
 def is_subsequence(s, t)
   s_ptr = t_ptr = 0
+  return true if s == ""
   while s_ptr < s.length do
     while ((t[t_ptr] != s[s_ptr]) && t_ptr < t.length) do
       t_ptr += 1
