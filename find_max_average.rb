@@ -50,10 +50,13 @@ def find_max_average(nums, k)
   window_left = 0
   max_sum = sum = nums[window_left..window_left + k - 1].reduce(:+)
   max_avg = sum.fdiv(k)
-  while window_left < nums.size - k do
+  while window_left < (nums.size - k) do
     window_left += 1
     sum = sum - nums[window_left - 1] + nums[window_left + k -1]
-    max_avg = sum.fdiv(k) if sum > max_sum
+    if sum > max_sum
+      max_avg = sum.fdiv(k)
+      max_sum = sum
+    end
   end
   return max_avg
 end
