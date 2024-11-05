@@ -35,4 +35,26 @@ Constraints:
 1 <= s.length <= 105
 s consists of lowercase English letters and stars *.
 
+OBSERVATIONS:
+This is specfied as a stack problem.
+
+PSEUDOCODE:
+Start from the last character of the string.
+Loop as follows:
+  If the current character is not a star
+    Check the stack for a star
+    If there is a star on the stack
+      Pop the star off the stack and toss it, and delete the current non-star character
+  Else (cur char in string is a star)
+    If the next char to the left is a star
+      Delete the cur star from the string and push it onto the stack
+
+I think this is it??
 =end
+
+# @param {String} s
+# @return {String}
+
+def remove_stars(s)
+    
+end
