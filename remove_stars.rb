@@ -35,6 +35,7 @@ Constraints:
 1 <= s.length <= 105
 s consists of lowercase English letters and stars *.
 
+=begin
 OBSERVATIONS:
 This is specfied as a stack problem.
 
@@ -44,17 +45,46 @@ Loop as follows:
   If the current character is not a star
     Check the stack for a star
     If there is a star on the stack
-      Pop the star off the stack and toss it, and delete the current non-star character
+      Pop the star off the stack and toss it, and delete the current non-star character, move index one to left
+    Else
+      move index one to left
   Else (cur char in string is a star)
-    If the next char to the left is a star
+    If the next char to the left is a star, or there is no char to the left (we're at the beginning of the string)
       Delete the cur star from the string and push it onto the stack
+      Move index one to left
+    else (next char to left isn't a star)
+      Delete cur star and the char to the left of it
+      Move index 2 to left
+Return string
 
 I think this is it??
 =end
 
-# @param {String} s
-# @return {String}
-
 def remove_stars(s)
-    
+  cur_char_index = s.length - 1
+  stack = []
+  while cur_char_index >= 0 do
+    p s
+    p stack
+    p cur_char_index
+    p " "
+    if s[cur_char_index] != '*' then
+      if stack[stack.length-1] == '*' then
+        stack.pop
+        s.slice!(cur_char_index,1)
+        # cur_char_index -= 1
+      end
+    else # cur_char_index points to '*'
+      if (s[cur_char_index-1] == '*') || (cur_char_index == 0)
+        s.slice!(cur_char_index,1)
+        stack.push('*')
+        # cur_char_index -= 1
+      else # cur char is '*' and next char to left is NOT '*'
+        s.slice!(cur_char_index-1,2)
+        # cur_char_index -= 1
+      end
+    end
+    cur_char_index -= 1
+  end
+  return s
 end
