@@ -39,6 +39,15 @@ s consists of lowercase English letters and stars *.
 OBSERVATIONS:
 This is specfied as a stack problem.
 
+GENERAL IDEA:
+If no star ever has another
+star to its left, we would just be able to go through and delete every star / non-star pair.
+The issue is that we may have multiple stars in a row.  We can use a stack to keep track of
+how many stars we've encountered that didn't have a matching non-star to its left.  Then,
+when we encounter a non-star, we can pop a star off the stack if there is one and delete the
+star / non-star pair.  If there is no star on the stack, we leave the non-star character in
+place and keep moving left.
+
 PSEUDOCODE:
 Start from the last character of the string.
 Loop as follows:
@@ -57,34 +66,30 @@ Loop as follows:
       Move index 2 to left
 Return string
 
-I think this is it??
 =end
 
 def remove_stars(s)
   cur_char_index = s.length - 1
   stack = []
   while cur_char_index >= 0 do
-    p s
-    p stack
-    p cur_char_index
-    p " "
     if s[cur_char_index] != '*' then
       if stack[stack.length-1] == '*' then
         stack.pop
         s.slice!(cur_char_index,1)
-        # cur_char_index -= 1
+        cur_char_index -= 1
+      else
+        cur_char_index -= 1
       end
     else # cur_char_index points to '*'
       if (s[cur_char_index-1] == '*') || (cur_char_index == 0)
         s.slice!(cur_char_index,1)
         stack.push('*')
-        # cur_char_index -= 1
+        cur_char_index -= 1
       else # cur char is '*' and next char to left is NOT '*'
         s.slice!(cur_char_index-1,2)
-        # cur_char_index -= 1
+        cur_char_index -= 2
       end
     end
-    cur_char_index -= 1
   end
   return s
 end
