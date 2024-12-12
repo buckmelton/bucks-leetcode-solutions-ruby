@@ -27,4 +27,22 @@ Constraints:
 -109 <= target <= 109
 Only one valid answer exists.
 
+PSEUDOCODE:
+Sort the array and use two pointers, one starting at the beginning and one starting
+at the end of the array.
+Loop until left pointer == right pointer
+  If the sum of the two numbers pointed to equal the target, return the
+  two pointer values.
+  If the sum of the two numbers pointed to is greater than the target, the answer
+    cannot involve the max pointer, as the combination of it and any other number
+    besides the left pointer would be yet greater.
+    So decrement the right pointer.
+  If the sum of the two numbers pointed to is less than the target, the answer
+  cannot involve the min pointer, since the sum of it and any other number besides
+  the max pointer would be even less.
+    So increment the left pointer
+End loop
+We shouldn't get here, as the specification guarantees exactly one solution
+
 =end
+
