@@ -46,3 +46,17 @@ We shouldn't get here, as the specification guarantees exactly one solution
 
 =end
 
+def two_sum(nums, target)
+  nums_with_index = nums.map.with_index { |num, i| [num, i] }
+  nums_with_index.sort! { |x,y| x[0] <=> y[0] }
+  left_ptr = 0
+  right_ptr = nums_with_index.length - 1
+  while left_ptr != right_ptr do
+    sum = nums_with_index[left_ptr][0] + nums_with_index[right_ptr][0]
+    return [nums_with_index[left_ptr][1], nums_with_index[right_ptr][1]] if sum == target
+    right_ptr -= 1 if sum > target
+    left_ptr += 1 if sum < target
+  end
+  p "We should not get here, error in input"
+end
+
